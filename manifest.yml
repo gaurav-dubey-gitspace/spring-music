@@ -3,6 +3,7 @@ applications:
 - name: spring-music
   memory: 64M
   random-route: true
+  disk_quota: 1G
   path: build/libs/spring-music-1.0.jar
   env:
     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
