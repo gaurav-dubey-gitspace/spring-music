@@ -1,0 +1,61 @@
+// replacing with new libary in a deperate repo
+//@Library("maven-builder") _
+@Library("maven-builder-library") _
+import com.company.library.*
+
+podTemplate(containers: [
+    containerTemplate(
+        name: 'maven', 
+        image: 'maven:3.8.1-jdk-8', 
+        command: 'sleep', 
+        args: '30d'
+        ),
+    containerTemplate(
+        name: 'python', 
+        image: 'python:latest', 
+        command: 'sleep', 
+        args: '30d')
+]
+  )
+//def pt = new com.company.library.podTemplate()
+//pt.printq()
+//echo "iam -"
+ 
+
+	{
+
+    node(POD_LABEL) {
+        stage('Get a Maven project') {
+            git credentialsId: '15037827-7021-4cf1-b042-9b33caf08f48', url: 'https://github.com/gaurav-dubey-gitspace/test-builder.git'
+            container('maven') {
+//                stage('Build a Maven project') {
+//sh '''#!/bin/bash
+//                 java -version
+//mvn install  
+//         '''
+//                }
+
+                stage('Build a Maven project') {
+executeMvnGoal(goalName:"install")
+//def pt = new com.company.library.podTemplate()
+//pt.printq()
+//executeMvnGoal(goalName:pt.printq())
+//echo "iam - ${pt.printq()}"
+                }
+
+            }
+        }
+
+        // stage('Get a Python Project') {
+        //     git url: 'https://github.com/hashicorp/terraform.git', branch: 'main'
+        //     container('python') {
+        //         stage('Build a Go project') {
+        //             sh '''
+        //             echo "Go Build"
+        //             '''
+        //         }
+        //     }
+        // }
+
+    }
+}
