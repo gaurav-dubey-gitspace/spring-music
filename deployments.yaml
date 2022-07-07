@@ -1,0 +1,83 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: my-deployment
+#   labels:
+#     app: my-app
+# spec:
+#   replicas: 2
+#   selector:
+#     matchLabels:
+#       app: my-app
+#   template:
+#     metadata:
+#       labels:
+#         app: my-app
+#     spec:
+#       imagePullSecrets:
+#       - name: jfrog-image-pull-secret
+#       containers:
+#       - name: my-app
+#         image: jenkinsjfrogserver11.jfrog.io/docker-repository-docker/dotnet-image:latest
+#         ports:
+#         - containerPort: 5000
+#         env:
+#         - name: ASPNETCORE_URLS
+#           value: http://*:5000
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  labels:
+    app: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      imagePullSecrets:
+      - name: jfrog-image-pull-secret
+      containers:
+      - name: my-app
+        image: jenkins3241.jfrog.io/docker-repository-docker/docker-image:latest
+        ports:
+        - containerPort: 8080
+        # env:
+        # - name: ASPNETCORE_URLS
+        #   value: http://*:5000
+---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: my-service
+# spec:
+#   type: LoadBalancer
+#   selector:
+#     app: my-app
+#   ports:
+#       # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+#     - port: 5000
+#       targetPort: 5000
+#       # Optional field
+#       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+#       # nodePort: 30007
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 8080
+      targetPort: 8080
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      # nodePort: 30007
