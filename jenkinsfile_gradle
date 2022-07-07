@@ -1,0 +1,227 @@
+@Library("maven-builder-library") _
+import com.company.library.*
+
+podTemplate = new podTemplate()
+podTemplate.getPodTemplate() {
+
+properties(
+    [parameters([
+        string(defaultValue: 'https://github.com/gaurav-dubey-gitspace/spring-music.git', description: 'URL for source code', name: 'Repository_URL'),
+        string(defaultValue: 'gd660955@gmail.com', description: 'Email', name: 'EMAIL')
+        // string(defaultValue: '', description: 'tech stack', name: 'TECHNOLOGY_STACK')
+        ])
+    ])
+
+node(POD_LABEL) {
+    try {
+        // stage('Get a Gradle project') {
+            // echo "${params.Greeting} Worldgreet!"
+            // echo "${params.Repository_URL} World from stage1!"
+            // git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/test-builder.git', branch: 'master'
+  
+container('gradle') {
+
+    // stage('Build Project using Gradle') {
+    //     sh '''#!/bin/bash
+    //     cd ./gradle-project/spring-boot-docker/
+    //     ./gradlew build
+    //     ls
+    //      '''
+    // }
+
+
+    stage('Build Project') {
+
+        git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/test-builder.git', branch: 'master'
+
+        sh """#!/bin/bash
+        git clone ${params.Repository_URL}
+        cd ./spring-music/
+        ./gradlew clean assemble
+        ls ./build/libs/
+         """
+
+        sh '''#!/bin/bash  
+        mkdir artifactsToUpload                
+        cp  /home/jenkins/agent/workspace/Gradle-builder/spring-music/build/libs/spring-music-1.0.jar artifactsToUpload/
+                    '''
+    }
+
+
+// $ ./gradlew clean assemble command I found to build jar 
+
+    // stage('Copy Artifacts to current directory(which is not root) to get away from permission issues to the artifactory plugin') {
+    //     sh '''#!/bin/bash  
+    //     mkdir artifactsToUpload                
+    //     cp  /home/jenkins/agent/workspace/Gradle-builder/gradle-project/spring-boot-docker/build/libs/spring-boot-docker-0.0.1-SNAPSHOT.jar artifactsToUpload/
+    //                 '''
+    // }
+
+    // stage('Copy Artifacts to current directory(which is not root) to get away from permission issues to the artifactory plugin') {
+    //     sh '''#!/bin/bash  
+    //     mkdir artifactsToUpload                
+    //     cp  /home/jenkins/agent/workspace/Gradle-builder/spring-music/build/libs/spring-music-1.0.jar artifactsToUpload/
+    //                 '''
+    // }
+
+//     stage('Artifactory Configuration') {
+// 	rtServer (
+//     	id: 'jfrog-artifactory-instance',
+//     	url: 'https://jenkinsjfrogserver11.jfrog.io/artifactory',
+//     	credentialsId: 'JenFrog-cred',
+//    	 timeout: 300
+// 	)	
+
+//     rtUpload (
+//     serverId: 'jfrog-artifactory-instance',
+//     specPath: './spec/jfrog/uploadSpec.json',
+//             )
+// }
+
+
+
+
+    // stage('Upload Artifacts') {
+    // rtUpload (
+    //     serverId: 'jfrog-artifactory-instance',
+    //     specPath: './spec/jfrog/uploadSpec.json',
+    //         )
+    // }
+
+
+}
+
+
+
+container('docker') {
+    
+
+    stage('Copy Artifacts to build context') {
+    sh '''#!/bin/bash
+    cp  artifactsToUpload/* dockerfiles/
+    ls ./dockerfiles/
+            '''
+    }
+
+stage('Containerise') {
+
+    rtServer (
+    	id: 'jfrog-artifactory-instance',
+    	url: 'https://jenkins3241.jfrog.io/artifactory',
+    	credentialsId: 'JenFrog-cred',
+   	 timeout: 300
+	)	
+
+    rtUpload (
+    serverId: 'jfrog-artifactory-instance',
+    specPath: './spec/jfrog/uploadSpec.json',
+            )
+
+    sh '''#!/bin/bash
+    cp  artifactsToUpload/* dockerfiles/
+    ls ./dockerfiles/
+            '''
+
+    docker.withRegistry('https://jenkins3241.jfrog.io/artifactory', 'JenFrog-cred') {
+    script{
+        def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
+        customImage.push()
+
+    }
+}      
+              }
+
+
+
+
+environment {
+		        PROJECT_ID = 'lexical-acolyte-352805'
+                CLUSTER_NAME = 'jenkins-ubuntu-containerd'
+                LOCATION = 'us-east1-b'
+                CREDENTIALS_ID = 'kubernetes'		
+}
+
+    stage('Deploy to GKE test cluster') {
+
+        kubectlInstaller()
+        GKEdeployer()
+
+    }
+
+
+
+//     // stage ('K8S Deploy') {
+//     //     steps {
+//     //         script {
+//     //             kubernetesDeploy(
+//     //                 configs: 'k8s-deployment.yaml',
+//     //                 kubeconfigId: 'K8S',
+//     //                 enableConfigSubstitution: true
+//     //                 )           
+//     //         }
+//     //     }
+//     // }
+
+
+    }
+
+} //try end
+finally {
+    // post {
+    // always {
+        // echo "hello"
+        // [emailext body: 'Test Message',
+        // // recipientProviders: [developers(), requestor()],
+        // recipientProviders: [[$class: 'DevelopersRecepientProvider'], [$class: 'RequesterRecipientProvider']],
+        // subject: 'Test Subject']
+        // to: 'test@example.com'
+
+    // }
+// }
+
+            mail to: "${params.EMAIL}",
+            // mail to: 'gd660955@gmail.com',
+            subject: "Pipeline Build Result: ${currentBuild.fullDisplayName}",
+            body: "Body of mail ${env.BUILD_URL}"
+
+//              git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/client-repo.git', branch: 'master'
+
+
+        //             sh """#!/bin/bash
+        //             cd ..
+        //             git clone https://<gitaccesskey>@github.com/gaurav-dubey-gitspace/client-repo.git
+        //             cd client-repo
+        //             cp ../Gradle-builder/jenkinsfile_gradle .
+        //             git add jenkinsfile_gradle
+        //             git commit -am "test"
+        //             git push
+        //  """
+
+        //             sh """#!/bin/bash
+        //             cd ..
+        //             git clone https://<gitaccesskey>@github.com/gaurav-dubey-gitspace/spring-music.git
+        //             ls
+        //             pwd
+        //             cd spring-music
+        //             cp ../Gradle-builder/Jenkinsfile-backup-v1 .
+        //             git add Jenkinsfile-backup-v1
+        //             git commit -am "test"
+        //             git push
+        //             rm -R ../spring-music
+        //             ls ../
+        //  """
+
+//          withCredentials([gitUsernamePassword(credentialsId: 'gaurav-dubey-gitspace-cred')]) {
+//   sh 'git push client-repo master'
+// }
+            
+
+
+} //finally end.
+
+}
+}
+
+
+
+
