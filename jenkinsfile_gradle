@@ -109,7 +109,7 @@ stage('Containerise') {
 
     rtServer (
     	id: 'jfrog-artifactory-instance',
-    	url: 'https://jenkins3241.jfrog.io/artifactory',
+    	url: 'https://jenkinsjfrogserver23.jfrog.io/artifactory',
     	credentialsId: 'JenFrog-cred',
    	 timeout: 300
 	)	
@@ -124,7 +124,7 @@ stage('Containerise') {
     ls ./dockerfiles/
             '''
 
-    docker.withRegistry('https://jenkins3241.jfrog.io/artifactory', 'JenFrog-cred') {
+    docker.withRegistry('https://jenkinsjfrogserver23.jfrog.io/artifactory', 'JenFrog-cred') {
     script{
         def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
         customImage.push()
