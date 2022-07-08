@@ -47,7 +47,7 @@ container('gradle') {
 
         sh '''#!/bin/bash  
         mkdir artifactsToUpload                
-        cp  /home/jenkins/agent/workspace/Gradle-builder/spring-music/build/libs/spring-music-1.0.jar artifactsToUpload/
+        cp  /home/jenkins/agent/workspace/Gradle-builder/build/libs/spring-music-1.0.jar artifactsToUpload/
                     '''
     }
 
