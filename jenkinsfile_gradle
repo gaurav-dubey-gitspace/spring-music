@@ -30,7 +30,7 @@ container('gradle') {
     //     ls
     //      '''
     // }
-    
+
 
 
     stage('Build Project') {
@@ -42,6 +42,7 @@ container('gradle') {
         cd ./spring-music/
         ./gradlew clean assemble
         ls ./build/libs/
+        pwd
          """
 
         sh '''#!/bin/bash  
