@@ -1,8 +1,0 @@
-{
-    "files": [
-      {
-        "pattern": "artifactsToUpload/*",
-        "target": "generic-repository-mvn/artifacts/"
-      }
-   ]
-}
