@@ -28,7 +28,6 @@ container('gradle') {
     // }
 
 
-
     stage('Build Project') {
 
         git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/spring-music.git', branch: 'master'
