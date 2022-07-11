@@ -30,19 +30,23 @@ container('gradle') {
 
     stage('Build Project') {
 
-        git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/spring-music.git', branch: 'master'
+        // git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/spring-music.git', branch: 'master'
 
-        sh """#!/bin/bash
-        git clone ${params.REPOSITORY_URL}
-        cd ./spring-music/
-        ./gradlew clean assemble
-        ls ./build/libs/
-        pwd
-         """
+        // sh """#!/bin/bash
+        // git clone ${params.REPOSITORY_URL}
+        // cd ./spring-music/
+        // ./gradlew clean assemble
+        // ls ./build/libs/
+        // pwd
+        //  """
+
+        // sh '''#!/bin/bash  
+        // mkdir artifactsToUpload 
+        // cp  /home/jenkins/agent/workspace/Gradle-builder/build/libs/spring-music-1.0.jar artifactsToUpload/
+        //             '''
 
         sh '''#!/bin/bash  
-        mkdir artifactsToUpload 
-        cp  /home/jenkins/agent/workspace/Gradle-builder/build/libs/spring-music-1.0.jar artifactsToUpload/
+        mkdir artifactsToUpload
                     '''
     }
 
@@ -129,12 +133,12 @@ stage('Containerise') {
     }
 } 
 
-// //     docker.withRegistry('https://us.gcr.io', 'My First Project') {
-// //     script{
-// //         def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
-// //         customImage.push()
-// //     }
-// // } 
+//     docker.withRegistry('https://us.gcr.io', 'My First Project') {
+//     script{
+//         def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
+//         customImage.push()
+//     }
+// } 
               }
 
 
@@ -157,7 +161,7 @@ environment {
     stage('Deploy to GKE test cluster') {
 
         kubectlInstaller()
-        
+
         // GKEdeployer()
         step([$class: 'KubernetesEngineBuilder', projectId: """${params.GKE_PROJECT_ID}""", clusterName: """${params.GKE_CLUSTER_NAME}""", location: """${params.GKE_LOCATION}""", manifestPattern: 'deployments.yaml', credentialsId: 'lexical-acolyte-352805', verifyDeployments: true])
 
