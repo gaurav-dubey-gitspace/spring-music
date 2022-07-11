@@ -154,7 +154,7 @@ stage('Containerise') {
 // }
 
 environment {
-		        PROJECT_ID = "${params.GKE_PROJECT_ID}"
+		        // PROJECT_ID = "${params.GKE_PROJECT_ID}"
                 CLUSTER_NAME = 'jenkins-ubuntu-containerd'
                 LOCATION = 'us-east1-b'
                 CREDENTIALS_ID = 'kubernetes'		
