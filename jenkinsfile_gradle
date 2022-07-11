@@ -19,13 +19,13 @@ node(POD_LABEL) {
 
 container('gradle') {
 
-    // stage('Build Project using Gradle') {
-    //     sh '''#!/bin/bash
-    //     cd ./gradle-project/spring-boot-docker/
-    //     ./gradlew build
-    //     ls
-    //      '''
-    // }
+    stage('Build Project using Gradle') {
+        sh '''#!/bin/bash
+        cd ./gradle-project/spring-boot-docker/
+        ./gradlew build
+        ls
+         '''
+    }
 
 
 
@@ -41,12 +41,9 @@ container('gradle') {
         pwd
          """
 
-        // sh '''#!/bin/bash  
-        // mkdir artifactsToUpload 
-        // cp  /home/jenkins/agent/workspace/Gradle-builder/build/libs/spring-music-1.0.jar artifactsToUpload/
-        //             '''
         sh '''#!/bin/bash  
         mkdir artifactsToUpload 
+        cp  /home/jenkins/agent/workspace/Gradle-builder/build/libs/spring-music-1.0.jar artifactsToUpload/
                     '''
     }
 
@@ -106,32 +103,32 @@ container('docker') {
     //         '''
     // }
 
-// stage('Containerise') {
+stage('Containerise') {
 
-//     rtServer (
-//     	id: 'jfrog-artifactory-instance',
-//     	url: 'https://jenkinsjfrogserver23.jfrog.io/artifactory',
-//     	credentialsId: 'JenFrog-cred',
-//    	 timeout: 300
-// 	)	
+    rtServer (
+    	id: 'jfrog-artifactory-instance',
+    	url: 'https://jenkinsjfrogserver23.jfrog.io/artifactory',
+    	credentialsId: 'JenFrog-cred',
+   	 timeout: 300
+	)	
 
-//     rtUpload (
-//     serverId: 'jfrog-artifactory-instance',
-//     specPath: './spec/jfrog/uploadSpec.json',
-//             )
+    rtUpload (
+    serverId: 'jfrog-artifactory-instance',
+    specPath: './spec/jfrog/uploadSpec.json',
+            )
 
-//     sh '''#!/bin/bash
-//     cp  artifactsToUpload/* dockerfiles/
-//     ls ./dockerfiles/
-//             '''
+    sh '''#!/bin/bash
+    cp  artifactsToUpload/* dockerfiles/
+    ls ./dockerfiles/
+            '''
 
-//     docker.withRegistry('https://jenkinsjfrogserver23.jfrog.io/artifactory', 'JenFrog-cred') {
-//     script{
-//         def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
-//         customImage.push()
+    docker.withRegistry('https://jenkinsjfrogserver23.jfrog.io/artifactory', 'JenFrog-cred') {
+    script{
+        def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
+        customImage.push()
 
-//     }
-// } 
+    }
+} 
 
 // //     docker.withRegistry('https://us.gcr.io', 'My First Project') {
 // //     script{
@@ -161,13 +158,7 @@ environment {
     stage('Deploy to GKE test cluster') {
 
         kubectlInstaller()
-        // GKEdeployer()
-        steps{
-            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployments.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-
-            
-        }
-        // step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployments.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+        GKEdeployer()
 
     }
 
