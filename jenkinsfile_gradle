@@ -161,7 +161,16 @@ environment {
         kubectlInstaller()
 
         // GKEdeployer()
-        step([$class: 'KubernetesEngineBuilder', projectId: """${params.GKE_PROJECT_ID}""", clusterName: """${params.GKE_CLUSTER_NAME}""", location: """${params.GKE_LOCATION}""", manifestPattern: 'deployments.yaml', credentialsId: 'lexical-acolyte-352805', verifyDeployments: true])
+                                       sh """#!/bin/bash
+                   echo "Hi ${params.EMAIL}"
+         """
+        step([$class: 'KubernetesEngineBuilder',
+        projectId: """${params.GKE_PROJECT_ID}""",
+        clusterName: """${params.GKE_CLUSTER_NAME}""",
+        location: """${params.GKE_LOCATION}""",
+        manifestPattern: 'deployments.yaml',
+        credentialsId: 'lexical-acolyte-352805',
+        verifyDeployments: true])
 
     }
 
