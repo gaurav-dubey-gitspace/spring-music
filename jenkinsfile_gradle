@@ -165,7 +165,7 @@ environment {
                    echo "Hi ${env.EMAIL}"
          """
         step([$class: 'KubernetesEngineBuilder',
-        projectId: ""${params.GKE_CLUSTER_NAME}"",
+        projectId: "${params.GKE_CLUSTER_NAME}",
         clusterName: """${params.GKE_CLUSTER_NAME}""",
         location: """${params.GKE_LOCATION}""",
         manifestPattern: 'deployments.yaml',
