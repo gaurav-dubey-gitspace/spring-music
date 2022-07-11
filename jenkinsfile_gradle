@@ -225,7 +225,7 @@ finally {
         //  """
 
                             sh """#!/bin/bash
-                   echo 
+                   echo ${params.EMAIL}
          """
 
 //          withCredentials([gitUsernamePassword(credentialsId: 'gaurav-dubey-gitspace-cred')]) {
