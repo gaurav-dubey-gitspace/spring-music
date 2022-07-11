@@ -162,10 +162,10 @@ environment {
 
         // GKEdeployer()
                                        sh """#!/bin/bash
-                   echo "Hi ${env.EMAIL}"
+                   echo "Hi ${params.EMAIL}"
          """
         step([$class: 'KubernetesEngineBuilder',
-        projectId: "${params.GKE_CLUSTER_NAME}",
+        projectId: '''${params.PROJECT_ID}''',
         clusterName: """${params.GKE_CLUSTER_NAME}""",
         location: """${params.GKE_LOCATION}""",
         manifestPattern: 'deployments.yaml',
