@@ -183,8 +183,8 @@ finally {
     // }
 // }
 
-            mail to: "${params.EMAIL}",
-            // mail to: 'gd660955@gmail.com',
+            // mail to: "${params.EMAIL}",
+            mail to: 'gd660955@gmail.com',
             subject: "Pipeline Build Result: ${currentBuild.fullDisplayName}",
             body: "Body of mail ${env.BUILD_URL}"
 
