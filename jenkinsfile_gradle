@@ -153,12 +153,12 @@ stage('Containerise') {
 //                 CREDENTIALS_ID = 'kubernetes'		
 // }
 
-environment {
-		        // PROJECT_ID = "${params.GKE_PROJECT_ID}"
-                CLUSTER_NAME = 'jenkins-ubuntu-containerd'
-                LOCATION = 'us-east1-b'
-                CREDENTIALS_ID = 'kubernetes'		
-}
+// environment {
+// 		        // PROJECT_ID = "${params.GKE_PROJECT_ID}"
+//                 CLUSTER_NAME = 'jenkins-ubuntu-containerd'
+//                 LOCATION = 'us-east1-b'
+//                 CREDENTIALS_ID = 'kubernetes'		
+// }
 
     stage('Deploy to GKE test cluster') {
 
