@@ -160,6 +160,7 @@ stage('Containerise') {
 //                 CREDENTIALS_ID = 'kubernetes'		
 // }
 
+
     stage('Deploy to GKE test cluster') {
 
         kubectlInstaller()
