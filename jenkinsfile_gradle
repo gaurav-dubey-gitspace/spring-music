@@ -197,6 +197,10 @@ finally {
             subject: "Pipeline Build Result: ${currentBuild.fullDisplayName}",
             body: "Body of mail ${env.BUILD_URL}"
 
+                                        sh """#!/bin/bash
+                   echo "${params.EMAIL}"
+         """
+
 //              git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/client-repo.git', branch: 'master'
 
 
@@ -224,9 +228,7 @@ finally {
         //             ls ../
         //  """
 
-                            sh """#!/bin/bash
-                   echo ${params.EMAIL}
-         """
+
 
 //          withCredentials([gitUsernamePassword(credentialsId: 'gaurav-dubey-gitspace-cred')]) {
 //   sh 'git push client-repo master'
