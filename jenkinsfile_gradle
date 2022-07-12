@@ -121,7 +121,6 @@ stage('Containerise') {
     cp  artifactsToUpload/* dockerfiles/
     ls ./dockerfiles/
             '''
-            
 
     docker.withRegistry('https://jenkinsjfrogserver231.jfrog.io/artifactory', 'JenFrog-cred') {
     script{
