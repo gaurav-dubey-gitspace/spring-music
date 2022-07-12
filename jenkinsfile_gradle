@@ -39,14 +39,14 @@ container('gradle') {
         pwd
          """
 
-        // sh '''#!/bin/bash  
-        // mkdir artifactsToUpload 
-        // cp  /home/jenkins/agent/workspace/Gradle-builder/build/libs/spring-music-1.0.jar artifactsToUpload/
-        //             '''
-
         sh '''#!/bin/bash  
-        mkdir artifactsToUpload
+        mkdir artifactsToUpload 
+        cp  /home/jenkins/agent/workspace/Gradle-builder/build/libs/spring-music-1.0.jar artifactsToUpload/
                     '''
+
+        // sh '''#!/bin/bash  
+        // mkdir artifactsToUpload
+        //             '''
     }
 
 
@@ -103,40 +103,40 @@ container('docker') {
     //         '''
     // }
 
-// stage('Containerise') {
+stage('Containerise') {
 
-//     rtServer (
-//     	id: 'jfrog-artifactory-instance',
-//     	url: 'https://jenkinsjfrogserver23.jfrog.io/artifactory',
-//     	credentialsId: 'JenFrog-cred',
-//    	 timeout: 300
-// 	)	
+    rtServer (
+    	id: 'jfrog-artifactory-instance',
+    	url: 'https://jenkinsjfrogserver23.jfrog.io/artifactory',
+    	credentialsId: 'JenFrog-cred',
+   	 timeout: 300
+	)	
 
-//     rtUpload (
-//     serverId: 'jfrog-artifactory-instance',
-//     specPath: './spec/jfrog/uploadSpec.json',
-//             )
+    rtUpload (
+    serverId: 'jfrog-artifactory-instance',
+    specPath: './spec/jfrog/uploadSpec.json',
+            )
 
-//     sh '''#!/bin/bash
-//     cp  artifactsToUpload/* dockerfiles/
-//     ls ./dockerfiles/
-//             '''
+    sh '''#!/bin/bash
+    cp  artifactsToUpload/* dockerfiles/
+    ls ./dockerfiles/
+            '''
 
-//     docker.withRegistry('https://jenkinsjfrogserver23.jfrog.io/artifactory', 'JenFrog-cred') {
+    docker.withRegistry('https://jenkinsjfrogserver23.jfrog.io/artifactory', 'JenFrog-cred') {
+    script{
+        def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
+        customImage.push()
+
+    }
+} 
+
+//     docker.withRegistry('https://us.gcr.io', 'My First Project') {
 //     script{
 //         def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
 //         customImage.push()
-
 //     }
 // } 
-
-// //     docker.withRegistry('https://us.gcr.io', 'My First Project') {
-// //     script{
-// //         def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
-// //         customImage.push()
-// //     }
-// // } 
-//               }
+              }
 
 
 
