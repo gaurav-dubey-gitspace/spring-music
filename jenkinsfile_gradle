@@ -161,7 +161,7 @@ environment {
 
         GKEdeployer()
                                        sh """#!/bin/bash
-                   echo "Hi ${params.EMAIL}"
+                   echo "Hi ${params.GKE_PROJECT_ID}"
                    pwd
                    ls
          """
