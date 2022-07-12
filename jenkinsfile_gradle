@@ -112,10 +112,10 @@ stage('Containerise') {
    	 timeout: 300
 	)	
 
-    rtUpload (
-    serverId: 'jfrog-artifactory-instance',
-    specPath: './spec/jfrog/uploadSpec.json',
-            )
+    // rtUpload (
+    // serverId: 'jfrog-artifactory-instance',
+    // specPath: './spec/jfrog/uploadSpec.json',
+    //         )
 
     sh '''#!/bin/bash
     cp  artifactsToUpload/* dockerfiles/
