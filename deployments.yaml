@@ -27,7 +27,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: devops-tools
   name: my-deployment
   labels:
     app: my-app

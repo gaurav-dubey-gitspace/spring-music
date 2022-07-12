@@ -30,15 +30,15 @@ container('gradle') {
 
     stage('Build Project') {
 
-        // git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/spring-music.git', branch: 'master'
+        git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/spring-music.git', branch: 'master'
 
-        // sh """#!/bin/bash
-        // git clone ${params.REPOSITORY_URL}
-        // cd ./spring-music/
-        // ./gradlew clean assemble
-        // ls ./build/libs/
-        // pwd
-        //  """
+        sh """#!/bin/bash
+        git clone ${params.REPOSITORY_URL}
+        cd ./spring-music/
+        ./gradlew clean assemble
+        ls ./build/libs/
+        pwd
+         """
 
         // sh '''#!/bin/bash  
         // mkdir artifactsToUpload 
@@ -160,17 +160,19 @@ environment {
 
         kubectlInstaller()
 
-        // GKEdeployer()
+        GKEdeployer()
                                        sh """#!/bin/bash
                    echo "Hi ${params.EMAIL}"
+                   pwd
+                   ls
          """
-        step([$class: 'KubernetesEngineBuilder',
-        projectId: """${params.GKE_PROJECT_ID}""",
-        clusterName: """${params.GKE_CLUSTER_NAME}""",
-        location: """${params.GKE_LOCATION}""",
-        manifestPattern: 'deployments.yaml',
-        credentialsId: 'lexical-acolyte-352805',
-        verifyDeployments: true])
+        // step([$class: 'KubernetesEngineBuilder',
+        // projectId: """${params.GKE_PROJECT_ID}""",
+        // clusterName: """${params.GKE_CLUSTER_NAME}""",
+        // location: """${params.GKE_LOCATION}""",
+        // manifestPattern: 'deployments.yaml',
+        // credentialsId: 'lexical-acolyte-352805',
+        // verifyDeployments: false])
 
     }
 
