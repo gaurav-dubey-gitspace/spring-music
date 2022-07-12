@@ -156,7 +156,7 @@ environment {
 // }
 
     stage('Deploy to GKE test cluster') {
-
+        // gCLoudInstaller()
         kubectlInstaller()
 
         GKEdeployer()
