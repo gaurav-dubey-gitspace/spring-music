@@ -189,7 +189,7 @@ finally {
                                        sh """#!/bin/bash
                    echo "Hi ${params.EMAIL}"
          """
-         
+
 
             // mail to: "${params.EMAIL}",
             mail to: 'gd660955@gmail.com',
@@ -197,7 +197,6 @@ finally {
             body: "Body of mail ${env.BUILD_URL}"
 
  
-
 //              git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/client-repo.git', branch: 'master'
 
 
