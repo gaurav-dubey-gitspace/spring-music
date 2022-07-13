@@ -158,7 +158,7 @@ environment {
 
     }
 
-container('gcloudSDK') {
+container('gcloudsdk') {
         stage('Deploy to GKE test cluster') {
 
         kubectlInstaller()
