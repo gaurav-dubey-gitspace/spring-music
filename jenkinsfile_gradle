@@ -189,6 +189,7 @@ finally {
                                        sh """#!/bin/bash
                    echo "Hi ${params.EMAIL}"
          """
+         
 
             // mail to: "${params.EMAIL}",
             mail to: 'gd660955@gmail.com',
