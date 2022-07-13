@@ -168,7 +168,7 @@ container('gcloudsdk') {
                    echo "Hi ${params.GKE_PROJECT_ID}"
                    pwd
                    gcloud --version
-                   sleep 600
+                   sleep 6000
                    gcloud container clusters list
                    gcloud container clusters get-credentials jenkins-ubuntu-containerd --zone us-east1-b --project lexical-acolyte-352805
          """
