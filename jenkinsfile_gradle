@@ -164,6 +164,7 @@ container('gcloudsdk') {
         kubectlInstaller()
 
         GKEdeployer()
+        
         //                                sh """#!/bin/bash
         //            echo "Hi ${params.GKE_PROJECT_ID}"
         //            pwd
