@@ -155,28 +155,23 @@ environment {
 //                 CREDENTIALS_ID = 'kubernetes'		
 // }
 
-    stage('Deploy to GKE test cluster') {
-        GCloudInstaller()
+
+
+    }
+
+container('gcloudSDK') {
+        stage('Deploy to GKE test cluster') {
+
         kubectlInstaller()
 
         // GKEdeployer()
                                        sh """#!/bin/bash
                    echo "Hi ${params.GKE_PROJECT_ID}"
                    pwd
-                   ls
+                   gcloud --version
          """
-         
-        // step([$class: 'KubernetesEngineBuilder',
-        // projectId: """${params.GKE_PROJECT_ID}""",
-        // clusterName: """${params.GKE_CLUSTER_NAME}""",
-        // location: """${params.GKE_LOCATION}""",
-        // manifestPattern: 'deployments.yaml',
-        // credentialsId: 'lexical-acolyte-352805',
-        // verifyDeployments: false])
     }
-
-
-    }
+}
 
 } //try end
 finally {
