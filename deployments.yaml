@@ -27,7 +27,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: devops-tools
+  name: testns
 ---
 apiVersion: v1
 data:
