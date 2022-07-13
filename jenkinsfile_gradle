@@ -161,17 +161,16 @@ environment {
 container('gcloudsdk') {
         stage('Deploy to GKE test cluster') {
 
-        // kubectlInstaller()
+        kubectlInstaller()
 
-        // GKEdeployer()
-                                       sh """#!/bin/bash
-                   echo "Hi ${params.GKE_PROJECT_ID}"
-                   pwd
-                   gcloud --version
-                   sleep 6000
-                   gcloud container clusters list
-                   gcloud container clusters get-credentials jenkins-ubuntu-containerd --zone us-east1-b --project lexical-acolyte-352805
-         """
+        GKEdeployer()
+        //                                sh """#!/bin/bash
+        //            echo "Hi ${params.GKE_PROJECT_ID}"
+        //            pwd
+        //            gcloud --version
+        //            gcloud container clusters list
+        //            gcloud container clusters get-credentials jenkins-ubuntu-containerd --zone us-east1-b --project lexical-acolyte-352805
+        //  """
     }
 }
 
