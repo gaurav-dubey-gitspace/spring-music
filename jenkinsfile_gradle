@@ -17,7 +17,6 @@ properties(
 
 node(POD_LABEL) {
     try {
-
 container('gradle') {
     // stage('Build Project using Gradle') {
     //     sh '''#!/bin/bash
