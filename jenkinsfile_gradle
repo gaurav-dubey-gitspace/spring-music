@@ -187,8 +187,6 @@ finally {
 // }
 
 
-
-
                                        sh """#!/bin/bash
                    echo "Hi ${params.EMAIL}"
          """
