@@ -18,7 +18,6 @@ node(POD_LABEL) {
     try {
 
 container('gradle') {
-
     // stage('Build Project using Gradle') {
     //     sh '''#!/bin/bash
     //     cd ./gradle-project/spring-boot-docker/
