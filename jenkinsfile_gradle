@@ -162,7 +162,6 @@ container('gcloudsdk') {
         stage('Deploy to GKE test cluster') {
 
         kubectlInstaller()
-        
         GKEdeployer()
         //                                sh """#!/bin/bash
         //            echo "Hi ${params.GKE_PROJECT_ID}"
