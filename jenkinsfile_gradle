@@ -156,10 +156,10 @@ environment {
 // }
 
     stage('Deploy to GKE test cluster') {
-        // gCLoudInstaller()
+        GCloudInstaller()
         kubectlInstaller()
 
-        GKEdeployer()
+        // GKEdeployer()
                                        sh """#!/bin/bash
                    echo "Hi ${params.GKE_PROJECT_ID}"
                    pwd
