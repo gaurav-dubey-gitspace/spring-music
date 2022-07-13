@@ -161,13 +161,14 @@ environment {
 container('gcloudsdk') {
         stage('Deploy to GKE test cluster') {
 
-        kubectlInstaller()
+        // kubectlInstaller()
 
         // GKEdeployer()
                                        sh """#!/bin/bash
                    echo "Hi ${params.GKE_PROJECT_ID}"
                    pwd
                    gcloud --version
+                   kubectl get pods
          """
     }
 }
