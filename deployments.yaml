@@ -35,6 +35,7 @@ metadata:
   resourceVersion: "15603"
   uid: 2bf8130c-425f-48a4-b23b-c0fd9119e2cc
 type: kubernetes.io/dockerconfigjson
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
