@@ -107,12 +107,12 @@ container('docker') {
 
 stage('Containerise') {
 
-    rtServer (
-    	id: 'jfrog-artifactory-instance',
-    	url: 'https://jenkinsjfrogserver231.jfrog.io/artifactory',
-    	credentialsId: 'JenFrog-cred',
-   	 timeout: 300
-	)	
+    // rtServer (
+    // 	id: 'jfrog-artifactory-instance',
+    // 	url: 'https://jenkinsjfrogserver231.jfrog.io/artifactory',
+    // 	credentialsId: 'JenFrog-cred',
+   	//  timeout: 300
+	// )	
 
     // rtUpload (
     // serverId: 'jfrog-artifactory-instance',
