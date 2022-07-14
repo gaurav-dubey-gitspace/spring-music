@@ -39,64 +39,12 @@ container('gradle') {
         cp  /home/jenkins/agent/workspace/Gradle-builder/spring-music/build/libs/spring-music-1.0.jar artifactsToUpload/
                     '''
 
-        // sh '''#!/bin/bash  
-        // mkdir artifactsToUpload
-        //             '''
     }
-
-
-    // stage('Copy Artifacts to current directory(which is not root) to get away from permission issues to the artifactory plugin') {
-    //     sh '''#!/bin/bash  
-    //     mkdir artifactsToUpload                
-    //     cp  /home/jenkins/agent/workspace/Gradle-builder/gradle-project/spring-boot-docker/build/libs/spring-boot-docker-0.0.1-SNAPSHOT.jar artifactsToUpload/
-    //                 '''
-    // }
-
-    // stage('Copy Artifacts to current directory(which is not root) to get away from permission issues to the artifactory plugin') {
-    //     sh '''#!/bin/bash  
-    //     mkdir artifactsToUpload                
-    //     cp  /home/jenkins/agent/workspace/Gradle-builder/spring-music/build/libs/spring-music-1.0.jar artifactsToUpload/
-    //                 '''
-    // }
-
-//     stage('Artifactory Configuration') {
-// 	rtServer (
-//     	id: 'jfrog-artifactory-instance',
-//     	url: 'https://jenkinsjfrogserver11.jfrog.io/artifactory',
-//     	credentialsId: 'JenFrog-cred',
-//    	 timeout: 300
-// 	)	
-
-//     rtUpload (
-//     serverId: 'jfrog-artifactory-instance',
-//     specPath: './spec/jfrog/uploadSpec.json',
-//             )
-// }
-
-
-
-
-    // stage('Upload Artifacts') {
-    // rtUpload (
-    //     serverId: 'jfrog-artifactory-instance',
-    //     specPath: './spec/jfrog/uploadSpec.json',
-    //         )
-    // }
-
-
 }
 
 
 
 container('docker') {
-    
-
-//     // stage('Copy Artifacts to build context') {
-//     // sh '''#!/bin/bash
-//     // cp  artifactsToUpload/* dockerfiles/
-//     // ls ./dockerfiles/
-//     //         '''
-//     // }
 
 stage('Containerise') {
 
@@ -133,23 +81,12 @@ stage('Containerise') {
 } 
               }
 
-
-
 environment {
 		        PROJECT_ID = 'lexical-acolyte-352805'
                 CLUSTER_NAME = 'jenkins-ubuntu-containerd'
                 LOCATION = 'us-east1-b'
                 CREDENTIALS_ID = 'lexical-acolyte-352805'	
 }
-
-// environment {
-// 		        // PROJECT_ID = "${params.GKE_PROJECT_ID}"
-//                 CLUSTER_NAME = 'jenkins-ubuntu-containerd'
-//                 LOCATION = 'us-east1-b'
-//                 CREDENTIALS_ID = 'kubernetes'		
-// }
-
-
 
     }
 
@@ -185,41 +122,6 @@ finally {
             mail to: 'gd660955@gmail.com',
             subject: "Pipeline Build Result: ${currentBuild.fullDisplayName}",
             body: "Body of mail ${env.BUILD_URL}"
-
-//              git credentialsId: 'gaurav-dubey-gitspace-cred', url: 'https://github.com/gaurav-dubey-gitspace/client-repo.git', branch: 'master'
-
-
-        //             sh """#!/bin/bash
-        //             cd ..
-        //             git clone https://<gitaccesskey>@github.com/gaurav-dubey-gitspace/client-repo.git
-        //             cd client-repo
-        //             cp ../Gradle-builder/jenkinsfile_gradle .
-        //             git add jenkinsfile_gradle
-        //             git commit -am "test"
-        //             git push
-        //  """
-
-        //             sh """#!/bin/bash
-        //             cd ..
-        //             git clone https://<gitaccesskey>@github.com/gaurav-dubey-gitspace/spring-music.git
-        //             ls
-        //             pwd
-        //             cd spring-music
-        //             cp ../Gradle-builder/Jenkinsfile-backup-v1 .
-        //             git add Jenkinsfile-backup-v1
-        //             git commit -am "test"
-        //             git push
-        //             rm -R ../spring-music
-        //             ls ../
-        //  """
-
-
-
-//          withCredentials([gitUsernamePassword(credentialsId: 'gaurav-dubey-gitspace-cred')]) {
-//   sh 'git push client-repo master'
-// }
-            
-
 
 } //finally end.
 }
