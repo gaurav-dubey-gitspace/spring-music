@@ -132,9 +132,9 @@ stage('Containerise') {
 //     }
 // } 
 
-    docker.withRegistry('https://us.gcr.io', 'gcr-access') {
+    docker.withRegistry('https://gcr.io', 'gcr-access') {
     script{
-        def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
+        def customImage = docker.build("lexical-acolyte-352805/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
         customImage.push()
     }
 } 
