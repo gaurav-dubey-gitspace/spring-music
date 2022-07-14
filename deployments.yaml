@@ -61,10 +61,10 @@ spec:
         app: my-app
     spec:
       imagePullSecrets:
-      - name: jfrog-image-pull-secret
+      - name: gcr-image-pull-secret
       containers:
       - name: my-app
-        image: jenkinsjfrogserver231.jfrog.io/docker-repository-docker/docker-image:latest
+        image: gcr.io/lexical-acolyte-352805/docker-image:latest
         ports:
         - containerPort: 8080
         # env:
