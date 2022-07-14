@@ -16,6 +16,9 @@ properties(
     ])
 
 node(POD_LABEL) {
+    ansiColor('xterm') {
+    // some block
+
     try {
 container('gradle') {
     // stage('Build Project using Gradle') {
@@ -227,7 +230,7 @@ finally {
 
 
 } //finally end.
-
+}
 }
 }
 
