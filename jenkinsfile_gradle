@@ -7,7 +7,7 @@ podTemplate.getPodTemplate() {
 properties(
     [parameters([
         string(defaultValue: 'https://github.com/gaurav-dubey-gitspace/spring-music.git', description: 'URL for source code', name: 'REPOSITORY_URL'),
-        string(defaultValue: 'gd660955@gmail.com', description: 'Email', name: 'EMAIL'),
+        string(defaultValue: 'rama.v@tcs.com', description: 'Email', name: 'EMAIL'),
         string(defaultValue: 'lexical-acolyte-352805', description: 'PROJECT ID', name: 'GKE_PROJECT_ID'),
         string(defaultValue: 'jenkins-ubuntu-containerd', description: 'GKE_CLUSTER_NAME', name: 'GKE_CLUSTER_NAME'),
         string(defaultValue: 'us-east1-b', description: 'GKE_LOCATION', name: 'GKE_LOCATION'),
