@@ -65,6 +65,7 @@ stage('Containerise') {
     ls ./dockerfiles/
             '''
 
+
 //     docker.withRegistry('https://jenkinsjfrogserver231.jfrog.io/artifactory', 'JenFrog-cred') {
 //     script{
 //         def customImage = docker.build("docker-repository-docker/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
