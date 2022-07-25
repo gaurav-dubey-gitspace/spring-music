@@ -122,7 +122,7 @@ finally {
             // mail to: "${params.EMAIL}",
             mail to: 'rama.v@tcs.com',
             subject: "Pipeline Build Result: ${currentBuild.fullDisplayName}",
-            body: "Your deployment has completed successfully!:\n Application now accessible at: 34.136.118.168:8080 \n${env.BUILD_URL}"
+            body: "Your deployment has completed successfully!:\n Application now accessible at: 35.243.244.150:8080 \n${env.BUILD_URL}"
 
 } //finally end.
 }
