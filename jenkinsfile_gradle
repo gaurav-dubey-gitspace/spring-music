@@ -24,20 +24,20 @@ container('gradle') {
 
     stage('Build Project') {
 
-        // git credentialsId: 'gaurav-dubey-gitspace-cred', url: "${params.REPOSITORY_URL}", branch: 'master'
+        git credentialsId: 'gaurav-dubey-gitspace-cred', url: "${params.REPOSITORY_URL}", branch: 'master'
 
-        // sh """#!/bin/bash
-        // git clone ${params.REPOSITORY_URL}
-        // cd ./spring-music/
-        // ./gradlew clean assemble
-        // ls ./build/libs/
-        // pwd
-        //  """
+        sh """#!/bin/bash
+        git clone ${params.REPOSITORY_URL}
+        cd ./spring-music/
+        ./gradlew clean assemble
+        ls ./build/libs/
+        pwd
+         """
 
-        // sh '''#!/bin/bash  
-        // mkdir artifactsToUpload 
-        // cp  /home/jenkins/agent/workspace/Gradle-builder/spring-music/build/libs/spring-music-1.0.jar artifactsToUpload/
-        //             '''
+        sh '''#!/bin/bash  
+        mkdir artifactsToUpload 
+        cp  /home/jenkins/agent/workspace/Gradle-builder/spring-music/build/libs/spring-music-1.0.jar artifactsToUpload/
+                    '''
 
     }
 }
@@ -49,19 +49,19 @@ container('docker') {
 stage('Containerise') {
 
 
-    // sh '''#!/bin/bash
-    // cp  artifactsToUpload/* dockerfiles/
-    // ls ./dockerfiles/
-    //         '''
+    sh '''#!/bin/bash
+    cp  artifactsToUpload/* dockerfiles/
+    ls ./dockerfiles/
+            '''
 
 
 
-//     docker.withRegistry('https://gcr.io', 'gcr:gcr-access') {
-//     script{
-//         def customImage = docker.build("lexical-acolyte-352805/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
-//         customImage.push()
-//     }
-// } 
+    docker.withRegistry('https://gcr.io', 'gcr:gcr-access') {
+    script{
+        def customImage = docker.build("lexical-acolyte-352805/docker-image", "/home/jenkins/agent/workspace/Gradle-builder/dockerfiles")
+        customImage.push()
+    }
+} 
               }
 
 
